@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Data Pipeline Project | Data Engineering Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1e40af;
+            --secondary: #f8fafc;
+            --dark: #1e293b;
+            --light: #ffffff;
+            --text: #334155;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text);
+            line-height: 1.6;
+            background-color: var(--secondary);
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            margin-top: 0;
+        }
+        
+        h1 {
+            font-size: 2.75rem;
+            line-height: 1.2;
+            color: white;
+            margin-bottom: 1.25rem;
+        }
+        
+        h2 {
+            font-size: 2.25rem;
+            margin-bottom: 1.75rem;
+            color: var(--primary-dark);
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+            color: var(--primary-dark);
+        }
+        
+        h4 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary-dark);
+        }
+        
+        p {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            margin-bottom: 1.75rem;
+            line-height: 1.7;
+        }
+        
+        code, .mono {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.95rem;
+            background-color: rgba(37, 99, 235, 0.1);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            color: var(--primary-dark);
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 6rem 0 5rem;
+            text-align: center;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        
+        .container {
+            width: 85%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .tagline {
+            font-size: 1.375rem;
+            font-weight: 300;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .section {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border);
+        }
+        
+        .section-header {
+            margin-bottom: 2rem;
+        }
+        
+        .visualization {
+            text-align: center;
+            margin: 3.5rem 0;
+        }
+        
+        .visualization img {
+            max-width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .visualization-caption {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-top: 1.25rem;
+        }
+        
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .tech-card {
+            background: var(--light);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .tech-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        ul {
+            padding-left: 1.5rem;
+            list-style: disc;
+        }
+        
+        li {
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: var(--light);
+            text-align: center;
+            padding: 4rem 0;
+            margin-top: 5rem;
+        }
+        
+        .contact-links {
+            margin: 2.5rem 0;
+        }
+        
+        .contact-links a {
+            color: var(--light);
+            margin: 0 1.25rem;
+            font-size: 1.75rem;
+        }
+        
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.95rem;
+            margin-top: 2.5rem;
+        }
+        
+        @media (max-width: 992px) {
+            .container {
+                width: 90%;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 5rem 0 4rem;
+            }
+            
+            h1 {
+                font-size: 2.25rem;
+            }
+            
+            h2 {
+                font-size: 1.75rem;
+            }
+            
+            .section {
+                padding: 2rem;
+            }
+            
+            .tech-stack {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            header {
+                padding: 4rem 0 3rem;
+            }
+            
+            .container {
+                width: 95%;
+                padding: 0 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.15rem;
+            }
+            
+            .section {
+                padding: 1.75rem;
+            }
+            
+            footer {
+                padding: 3rem 0;
+                margin-top: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>YouTube Data Pipeline Project</h1>
+            <p class="tagline">A cloud-based data processing pipeline demonstrating ETL workflows and visualization</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Project Overview -->
+        <section class="section" id="overview">
+            <div class="section-header">
+                <h2>Project Overview</h2>
+                <p>Implemented a serverless data pipeline on AWS to process YouTube video data, demonstrating modern data engineering practices. The solution extracts raw video metadata, processes it through multiple stages, and delivers actionable insights through visualization.</p>
+            </div>
+        </section>
+
+        <!-- Technical Architecture -->
+        <section class="section" id="architecture">
+            <div class="section-header">
+                <h2>Pipeline Architecture</h2>
+                <p>The architecture follows a multi-stage data lake pattern with serverless components for cost efficiency and scalability.</p>
+            </div>
+            
+            <div class="visualization">
+                <img src="architecture.png" alt="Data Pipeline Architecture Diagram">
+                <p class="visualization-caption">Serverless data pipeline architecture on AWS</p>
+            </div>
+            
+            <h3>Implementation Details</h3>
+            <ul>
+                <li><strong>Data Ingestion:</strong> Raw YouTube data collected via API and stored in S3 landing zone</li>
+                <li><strong>Data Processing:</strong> AWS Lambda for lightweight transformations and AWS Glue for complex ETL</li>
+                <li><strong>Data Lake Structure:</strong> Three-tier S3 architecture (landing → cleansed → analytics)</li>
+                <li><strong>Query Layer:</strong> Amazon Athena for SQL-based analysis of processed data</li>
+                <li><strong>Visualization:</strong> Amazon QuickSight dashboards for business insights</li>
+            </ul>
+        </section>
+
+        <!-- Technology Stack -->
+        <section class="section" id="technology">
+            <div class="section-header">
+                <h2>Technology Stack</h2>
+                <p>The project leverages AWS serverless technologies to create a scalable and maintainable solution.</p>
+            </div>
+            
+            <div class="tech-stack">
+                <div class="tech-card">
+                    <div class="tech-icon"><i class="fas fa-database"></i></div>
+                    <h4>Storage</h4>
+                    <p>Amazon S3</p>
+                    <p>Parquet format</p>
+                    <p>Partitioned datasets</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon"><i class="fas fa-cogs"></i></div>
+                    <h4>Processing</h4>
+                    <p>AWS Lambda</p>
+                    <p>AWS Glue</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon"><i class="fas fa-search"></i></div>
+                    <h4>Analysis</h4>
+                    <p>Amazon Athena</p>
+                    <p>SQL queries</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon"><i class="fas fa-chart-bar"></i></div>
+                    <h4>Visualization</h4>
+                    <p>Amazon QuickSight</p>
+                    <p>Interactive dashboards</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Showcase -->
+        <section class="section" id="dashboard">
+            <div class="section-header">
+                <h2>Data Visualization</h2>
+                <p>The processed data is presented through interactive dashboards showing key YouTube metrics.</p>
+            </div>
+            
+            <div class="visualization">
+                <img src="dashboard.jpg" alt="YouTube Analytics Dashboard">
+                <p class="visualization-caption">QuickSight dashboard showing processed YouTube metrics</p>
+            </div>
+            
+            <h3>Dashboard Features</h3>
+            <ul>
+                <li>Views, likes, and comments analysis by video category</li>
+                <li>Engagement metrics over time</li>
+                <li>Top performing content analysis</li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <h3>Contact</h3>
+            <p>For more information about this project or to discuss data engineering opportunities</p>
+            
+            <div class="contact-links">
+                <a href="mailto:gauthamkuckian07@gmail.com" title="Email" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="https://linkedin.com/in/gauthamkuckian" target="_blank" title="LinkedIn" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://github.com/gauthamkuckian" target="_blank" title="GitHub" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+            
+            <p class="copyright">© 2024 Data Engineering Portfolio</p>
+        </div>
+    </footer>
+</body>
+</html>
